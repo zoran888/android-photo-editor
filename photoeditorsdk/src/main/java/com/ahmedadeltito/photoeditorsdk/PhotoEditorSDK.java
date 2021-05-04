@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Environment;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
