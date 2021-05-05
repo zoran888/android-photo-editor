@@ -15,6 +15,9 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -163,17 +166,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
 
         colorPickerColors = new ArrayList<>();
         colorPickerColors.add(getResources().getColor(R.color.black));
-        colorPickerColors.add(getResources().getColor(R.color.blue_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.brown_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.green_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.orange_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.red_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.red_orange_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.sky_blue_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.violet_color_picker));
         colorPickerColors.add(getResources().getColor(R.color.white));
-        colorPickerColors.add(getResources().getColor(R.color.yellow_color_picker));
-        colorPickerColors.add(getResources().getColor(R.color.yellow_green_color_picker));
 
         new CountDownTimer(500, 100) {
 
@@ -224,11 +217,38 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         photoEditorSDK.brushEraser();
     }
 
+    private void changeTextStyle(StrokeEditText addTextEditText, HiddenEditText hiddenEditText, int colorCode) {
+        hiddenEditText.setStrokeWidth(2);
+        hiddenEditText.setFillColor(colorCode);
+        hiddenEditText.invalidate();
+
+        addTextEditText.setStrokeWidth(2);
+        addTextEditText.setFillColor(colorCode);
+        addTextEditText.invalidate();
+    }
+
     private void openAddTextPopupWindow(String text, int colorCode) {
         colorCodeTextView = colorCode;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View addTextPopupWindowRootView = inflater.inflate(R.layout.add_text_popup_window, null);
-        final EditText addTextEditText = (EditText) addTextPopupWindowRootView.findViewById(R.id.add_text_edit_text);
+        final View addTextPopupWindowRootView = inflater.inflate(R.layout.add_text_popup_window, null);
+        final StrokeEditText addTextEditText = (StrokeEditText) addTextPopupWindowRootView.findViewById(R.id.add_text_edit_text);
+        final HiddenEditText hiddenEditText = (HiddenEditText) addTextPopupWindowRootView.findViewById(R.id.add_text_edit_text_hidden);
+        changeTextStyle(addTextEditText, hiddenEditText, colorCodeTextView);
+
+        hiddenEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                addTextEditText.setText(s.toString());
+                changeTextStyle(addTextEditText, hiddenEditText, colorCodeTextView);
+            }
+        });
+
         TextView addTextDoneTextView = (TextView) addTextPopupWindowRootView.findViewById(R.id.add_text_done_tv);
         RecyclerView addTextColorPickerRecyclerView = (RecyclerView) addTextPopupWindowRootView.findViewById(R.id.add_text_color_picker_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(PhotoEditorActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -238,7 +258,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         colorPickerAdapter.setOnColorPickerClickListener(new ColorPickerAdapter.OnColorPickerClickListener() {
             @Override
             public void onColorPickerClickListener(int colorCode) {
-                addTextEditText.setTextColor(colorCode);
+                changeTextStyle(addTextEditText, hiddenEditText, colorCodeTextView);
                 colorCodeTextView = colorCode;
             }
         });
@@ -329,7 +349,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         } else if (v.getId() == R.id.add_image_emoji_tv) {
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
         } else if (v.getId() == R.id.add_text_tv) {
-            openAddTextPopupWindow("", -1);
+            openAddTextPopupWindow("", getResources().getColor(R.color.black));
         } else if (v.getId() == R.id.add_pencil_tv) {
             updateBrushDrawingView(true);
         } else if (v.getId() == R.id.done_drawing_tv) {

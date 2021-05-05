@@ -20,7 +20,7 @@
         android:textColor="@color/white"
         android:textSize="15sp" />
 
-    <EditText
+    <com.ahmedadeltito.photoeditor.StrokeEditText
         android:id="@+id/add_text_edit_text"
         style="@style/EditText"
         android:layout_width="match_parent"
@@ -30,7 +30,18 @@
         android:background="@null"
         android:gravity="center"
         android:inputType="textMultiLine"
-        android:textSize="40sp" />
+        android:textSize="40sp"/>
+    <com.ahmedadeltito.photoeditor.HiddenEditText
+        android:id="@+id/add_text_edit_text_hidden"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_text_color_picker_relative_layout"
+        android:layout_below="@+id/add_text_done_tv"
+        android:background="@null"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:textSize="40sp"/>
 
     <RelativeLayout
         android:id="@+id/add_text_color_picker_relative_layout"
