@@ -16,7 +16,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 public class HiddenEditText extends AppCompatEditText {
     private int _strokeColor;
     private int _strokeWidth;
-    private int _fillColor;
 
     public HiddenEditText(@NonNull Context context) {
         super(context);
@@ -36,7 +35,6 @@ public class HiddenEditText extends AppCompatEditText {
 
     public void setFillColor(int color) {
         _strokeColor = getStrokeColor(color);
-        _fillColor = color;
     }
 
     private int getStrokeColor(int colorCode) {

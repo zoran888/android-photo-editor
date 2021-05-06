@@ -218,11 +218,11 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void changeTextStyle(StrokeEditText addTextEditText, HiddenEditText hiddenEditText, int colorCode) {
-        hiddenEditText.setStrokeWidth(2);
+        hiddenEditText.setStrokeWidth(4);
         hiddenEditText.setFillColor(colorCode);
         hiddenEditText.invalidate();
 
-        addTextEditText.setStrokeWidth(2);
+        addTextEditText.setStrokeWidth(4);
         addTextEditText.setFillColor(colorCode);
         addTextEditText.invalidate();
     }

@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
 public class StrokeEditText extends AppCompatEditText {
-    private int _strokeColor;
     private int _strokeWidth;
     private int _fillColor;
 
@@ -35,16 +34,7 @@ public class StrokeEditText extends AppCompatEditText {
     }
 
     public void setFillColor(int color) {
-        _strokeColor = getStrokeColor(color);
         _fillColor = color;
-    }
-
-    private int getStrokeColor(int colorCode) {
-        if ( colorCode == getResources().getColor(R.color.white) ) {
-            return getResources().getColor(R.color.black);
-        }
-
-        return getResources().getColor(R.color.white);
     }
 
     @Override
