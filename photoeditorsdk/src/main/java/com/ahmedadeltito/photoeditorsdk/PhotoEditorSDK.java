@@ -68,6 +68,7 @@ public class PhotoEditorSDK implements MultiTouchListener.OnMultiTouchListener {
         addTextRootView = inflater.inflate(R.layout.photo_editor_sdk_text_item_list, null);
         StrokeTextView addTextView = (StrokeTextView) addTextRootView.findViewById(R.id.photo_editor_sdk_text_tv);
         addTextView.setGravity(Gravity.CENTER);
+        addTextView.setSingleLine(false);
 
         addTextView.setStrokeWidth(4);
         addTextView.setFillColor(colorCodeTextView);
