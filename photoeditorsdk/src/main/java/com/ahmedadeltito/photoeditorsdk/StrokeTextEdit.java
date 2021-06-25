@@ -1,27 +1,28 @@
-package com.ahmedadeltito.photoeditor;
+package com.ahmedadeltito.photoeditorsdk;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
-public class StrokeEditText extends AppCompatEditText {
+public class StrokeTextEdit extends AppCompatEditText {
     private int _strokeWidth;
     private int _fillColor;
 
-    public StrokeEditText(@NonNull Context context) {
+    public StrokeTextEdit(@NonNull Context context) {
         super(context);
     }
 
-    public StrokeEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public StrokeTextEdit(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public StrokeEditText(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public StrokeTextEdit(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -31,6 +32,11 @@ public class StrokeEditText extends AppCompatEditText {
 
     public void setFillColor(int color) {
         _fillColor = color;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        return false;
     }
 
     @Override

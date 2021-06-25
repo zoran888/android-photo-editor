@@ -66,13 +66,24 @@ public class PhotoEditorSDK implements MultiTouchListener.OnMultiTouchListener {
     public void addText(String text, int colorCodeTextView) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addTextRootView = inflater.inflate(R.layout.photo_editor_sdk_text_item_list, null);
-        StrokeTextView addTextView = (StrokeTextView) addTextRootView.findViewById(R.id.photo_editor_sdk_text_tv);
+        StrokeTextEdit addTextView = (StrokeTextEdit) addTextRootView.findViewById(R.id.photo_editor_sdk_text_tv);
+        HiddenTextEdit hiddenTextView = (HiddenTextEdit) addTextRootView.findViewById(R.id.photo_editor_sdk_hidden_text_tv);
         addTextView.setGravity(Gravity.CENTER);
         addTextView.setSingleLine(false);
+        hiddenTextView.setGravity(Gravity.CENTER);
+        hiddenTextView.setSingleLine(false);
+
+        addTextView.setText(text);
+        hiddenTextView.setText(text);
+
+        hiddenTextView.setStrokeWidth(4);
+        hiddenTextView.setFillColor(colorCodeTextView);
+        hiddenTextView.invalidate();
 
         addTextView.setStrokeWidth(4);
         addTextView.setFillColor(colorCodeTextView);
-        addTextView.setText(text);
+        addTextView.invalidate();
+
         MultiTouchListener multiTouchListener = new MultiTouchListener(deleteView,
                 parentView, this.imageView, onPhotoEditorSDKListener);
         multiTouchListener.setOnMultiTouchListener(this);
@@ -89,7 +100,7 @@ public class PhotoEditorSDK implements MultiTouchListener.OnMultiTouchListener {
     public void addEmoji(String emojiName, Typeface emojiFont) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emojiRootView = inflater.inflate(R.layout.photo_editor_sdk_text_item_list, null);
-        TextView emojiTextView = (TextView) emojiRootView.findViewById(R.id.photo_editor_sdk_text_tv);
+        StrokeTextEdit emojiTextView = (StrokeTextEdit) emojiRootView.findViewById(R.id.photo_editor_sdk_text_tv);
         emojiTextView.setTypeface(emojiFont);
         emojiTextView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         emojiTextView.setText(convertEmoji(emojiName));

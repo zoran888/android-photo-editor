@@ -1,27 +1,29 @@
-package com.ahmedadeltito.photoeditor;
+package com.ahmedadeltito.photoeditorsdk;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
-public class HiddenEditText extends AppCompatEditText {
+public class HiddenTextEdit extends AppCompatEditText {
     private int _strokeColor;
     private int _strokeWidth;
 
-    public HiddenEditText(@NonNull Context context) {
+    public HiddenTextEdit(@NonNull Context context) {
         super(context);
     }
 
-    public HiddenEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public HiddenTextEdit(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public HiddenEditText(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public HiddenTextEdit(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -34,11 +36,16 @@ public class HiddenEditText extends AppCompatEditText {
     }
 
     private int getStrokeColor(int colorCode) {
-        if ( colorCode == getResources().getColor(R.color.white) ) {
-            return getResources().getColor(R.color.black);
+        if ( colorCode == Color.parseColor("#FFFFFF") ) {
+            return Color.parseColor("#000000");
         }
 
-        return getResources().getColor(R.color.white);
+        return Color.parseColor("#FFFFFF");
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        return false;
     }
 
     @Override

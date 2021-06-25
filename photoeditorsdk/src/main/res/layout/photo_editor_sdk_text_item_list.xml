@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ahmedadeltito.photoeditorsdk.StrokeTextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/photo_editor_sdk_text_tv"
+
+<FrameLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:padding="12dp"
-    android:textColor="@android:color/black"
-    android:singleLine="false"
-    android:textSize="40sp" />
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.ahmedadeltito.photoeditorsdk.HiddenTextEdit
+        android:id="@+id/photo_editor_sdk_hidden_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:background="@null"
+        android:focusable="false"
+        android:textColor="@android:color/black"
+        android:singleLine="false"
+        android:textSize="40sp" />
+    <com.ahmedadeltito.photoeditorsdk.StrokeTextEdit
+        android:id="@+id/photo_editor_sdk_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:focusable="false"
+        android:background="@null"
+        android:textColor="@android:color/black"
+        android:singleLine="false"
+        android:textSize="40sp" />
+
+</FrameLayout>

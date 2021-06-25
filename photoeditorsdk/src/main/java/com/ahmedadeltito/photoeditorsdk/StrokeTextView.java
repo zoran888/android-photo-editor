@@ -1,5 +1,6 @@
 package com.ahmedadeltito.photoeditorsdk;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,7 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 public class StrokeTextView extends androidx.appcompat.widget.AppCompatTextView {
@@ -56,13 +58,25 @@ public class StrokeTextView extends androidx.appcompat.widget.AppCompatTextView 
     protected void onDraw(Canvas canvas) {
         Paint p = getPaint();
         String text = getText().toString();
-        Rect rect = new Rect();
-        p.getTextBounds("y", 0, 1, rect);
+
+        long lowerCount = 0;
+        for (char c: text.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                lowerCount++;
+            }
+        }
+
+        @SuppressLint("DrawAllocation") Rect rect = new Rect();
+        if (lowerCount >= (text.length() * 0.6)) {
+            p.getTextBounds("y", 0, 1, rect);
+        } else {
+            p.getTextBounds("Y", 0, 1, rect);
+        }
         int sp40InPx = rect.width();
-        int sp45InPx = rect.height() + 20;
+        int sp45InPx = rect.height() + 22;
         int deviceWidthPx = getDeviceWidth((Activity) getContext());
         deviceWidthPx = deviceWidthPx - (deviceWidthPx % sp40InPx);
-        int displayLimitLength = deviceWidthPx / sp40InPx;
+        int displayLimitLength = (int)Math.floor(deviceWidthPx / sp40InPx);
 
         String[] strings = text.split("\n");
         int yOffset = 0;
@@ -84,7 +98,10 @@ public class StrokeTextView extends androidx.appcompat.widget.AppCompatTextView 
                 if (endPos > each.length()) {
                     endPos = each.length();
                 }
-                int xOffset = strings.length > 1 ? maxCenterXOffset - (sp40InPx * each.length() / 2) : 0;
+                int paddingPos = endPos % displayLimitLength > 0 ? (endPos % displayLimitLength) : displayLimitLength;
+                int xOffset = strings.length > 1 ?
+                        maxCenterXOffset - (sp40InPx * each.length() / 2) :
+                        (deviceWidthPx - paddingPos * sp40InPx) / 2;
                 String lineStr = each.substring(i*displayLimitLength, endPos);
                 p.setStyle(Paint.Style.FILL);
                 p.setColor(_fillColor);
