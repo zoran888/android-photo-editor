@@ -233,6 +233,9 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         final View addTextPopupWindowRootView = inflater.inflate(R.layout.add_text_popup_window, null);
         final StrokeEditText addTextEditText = (StrokeEditText) addTextPopupWindowRootView.findViewById(R.id.add_text_edit_text);
         final HiddenEditText hiddenEditText = (HiddenEditText) addTextPopupWindowRootView.findViewById(R.id.add_text_edit_text_hidden);
+        Typeface impact = Typeface.createFromAsset(getAssets(), "impact.ttf");
+        addTextEditText.setTypeface(impact);
+        hiddenEditText.setTypeface(impact);
         changeTextStyle(addTextEditText, hiddenEditText, colorCodeTextView);
 
         hiddenEditText.addTextChangedListener(new TextWatcher() {
