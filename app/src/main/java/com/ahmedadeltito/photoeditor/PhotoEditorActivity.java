@@ -50,6 +50,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
     private TextView undoTextView, undoTextTextView, doneDrawingTextView, eraseDrawingTextView;
     private SlidingUpPanelLayout mLayout;
     private Typeface emojiFont;
+    private Typeface impactFont;
     private View topShadow;
     private RelativeLayout topShadowRelativeLayout;
     private View bottomShadow;
@@ -71,6 +72,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
 
         Typeface newFont = Typeface.createFromAsset(getAssets(), "Eventtus-Icons.ttf");
         emojiFont = Typeface.createFromAsset(getAssets(), "emojione-android.ttf");
+        impactFont = Typeface.createFromAsset(getAssets(), "impact.ttf");
 
         BrushDrawingView brushDrawingView = (BrushDrawingView) findViewById(R.id.drawing_view);
         drawingViewColorPickerRecyclerView = (RecyclerView) findViewById(R.id.drawing_view_color_picker_recycler_view);
@@ -202,7 +204,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void addText(String text, int colorCodeTextView) {
-        photoEditorSDK.addText(text, colorCodeTextView);
+        photoEditorSDK.addText(text, colorCodeTextView, impactFont);
     }
 
     private void clearAllViews() {
